@@ -13,7 +13,7 @@ const ejsMate=require("ejs-mate");
 // const wrapAsync= require("./utils/wrapAsync.js");
 const ExpressError =require("./utils/ExpressError.js");
 const session= require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo"); //ABHI KIYA
 const flash=require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -116,37 +116,37 @@ app.all("*", (req, res, next)=>{
 // });
 
 
-// app.use((err, req, res, next)=>{
-//     if(typeof err=== "string"){
-//         err= { message: err};
-//     }
-//     const statusCode = typeof err.statusCode === "number" ? err.statusCode : 500;
-//     const message = typeof err.message ==="string" ?  err.message:"something went wrong";
-
-// res.status(statusCode).render("error.ejs", {err: {statusCode, message}});
-//     // res.status(statusCode).send(messagw);
-// });
-
-app.use((err, req, res, next) => {
-    let statusCode = 500;
-    let message = "Something went wrong";
-
-    if (err && typeof err === "object") {
-        if (typeof err.statusCode === "number") {
-            statusCode = err.statusCode;
-        }
-        if (typeof err.message === "string") {
-            message = err.message;
-        }
+app.use((err, req, res, next)=>{
+    if(typeof err=== "string"){
+        err= { message: err};
     }
+    const statusCode = typeof err.statusCode === "number" ? err.statusCode : 500;
+    const message = typeof err.message ==="string" ?  err.message:"something went wrong";
 
-    res.status(statusCode).render("error.ejs", {
-        err: {
-            statusCode,
-            message
-        }
-    });
+res.status(statusCode).render("error.ejs", {err: {statusCode, message}});
+    res.status(statusCode).send(message);
 });
+
+// app.use((err, req, res, next) => {
+//     let statusCode = 500;
+//     let message = "Something went wrong";
+
+//     if (err && typeof err === "object") {
+//         if (typeof err.statusCode === "number") {
+//             statusCode = err.statusCode;
+//         }
+//         if (typeof err.message === "string") {
+//             message = err.message;
+//         }
+//     }
+
+//     res.status(statusCode).render("error.ejs", {
+//         err: {
+//             statusCode,
+//             message
+//         }
+//     });
+// });
 app.listen(8080, ()=>{
     console.log("Server is listening to port 8080");
 });
