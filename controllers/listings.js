@@ -5,11 +5,12 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken});
 
 
-module.exports.index = async (req, res)=>{
-    const allListings= await Listing.find({});
-    // res.render("/listings/index.ejs", {allListings});
-    res.render("listings/index", {listings: allListings});
+module.exports.index = async (req, res) => {
+  const allListings = await Listing.find({});
+  console.log("LISTINGS COUNT:", allListings.length);
+  res.render("listings/index", { listings: allListings });
 };
+
 
 module.exports.renderNewForm = (req, res)=>{   
     res.render("listings/new.ejs");
