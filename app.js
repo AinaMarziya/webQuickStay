@@ -31,7 +31,7 @@ main().then(() => {
 });
 
 async function main() {
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(dbUrl,{dbName:"quickstay" });
 }
 
 app.set("view engine", "ejs");
@@ -95,6 +95,7 @@ app.all("*", (req, res, next)=>{
 });
 
 app.use((err, req, res, next)=>{
+    console.error("ERR:", err);
     if(typeof err=== "string"){
         err= { message: err};
     }
