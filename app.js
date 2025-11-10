@@ -111,4 +111,6 @@ app.listen(8080, ()=>{
 });
 
 console.log("Mapbox Token:", process.env.MAP_TOKEN);
+console.log(process.env.ATLASDB_URL);
+
 // res.render("show", {mapToken: process.env.MAP_TOKEN});
