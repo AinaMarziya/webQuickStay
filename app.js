@@ -24,6 +24,7 @@ const userRouter = require("./routes/user.js");
 const dbUrl = process.env.ATLASDB_URL;
 
 
+
 main().then(() => {
     console.log("connected to DB");
 }).catch(err => {
@@ -85,6 +86,8 @@ app.use((req, res, next ) => {
     next();
 });
 
+//Fix favicon error
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
