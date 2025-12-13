@@ -20,13 +20,19 @@ module.exports.showListing = async (req, res)=>{
     let {id} =req.params;
 
     const listing = await Listing.findById(id)
+    .populate("owner")
     .populate({
         path:"reviews",
         populate: {
             path: "author",
         },
-    })
-    .populate("owner");
+    });
+    // .populate("owner");
+//     .populate({
+//     path: "owner",
+//     select: "username email" 
+// });
+
     if(!listing){
         req.flash("error", "Listing you requested for does not exist!");
         res.redirect("/listings");

@@ -5,28 +5,38 @@ const Listing = require("../models/listing");
 const initData = require("./data");
 
 (async () => {
-  try {
-    await mongoose.connect(process.env.ATLASDB_URL);
-    console.log("✅ DB connected");
-
-    const OWNER_ID = "686dda3c73e9673422ef46a1";  // your user ID from atlas users collection
-
-    // Add default geometry for all listings
-    const docs = initData.data.map(item => ({
-      ...item,
-      owner: OWNER_ID,
-      geometry: { type: "Point", coordinates: [77.2090, 28.6139] } // Delhi coordinates (safe default)
-    }));
-
-    await Listing.deleteMany({});
-    await Listing.insertMany(docs);
-
-    console.log(`✅ Seeded ${docs.length} listings`);
-    await mongoose.disconnect();
-  } catch (e) {
-    console.error(e);
-  }
+  await mongoose.connect(process.env.ATLASDB_URL, { dbName: "quickstay" }); // <—
+  console.log("✅ Seed connected");
+  await Listing.deleteMany({});
+  await Listing.insertMany(initData.data.map(d => ({ ...d, owner: "686dda3c73e9673422ef46a1" })));
+  console.log("✅ Seeded", initData.data.length);
+  await mongoose.disconnect();
 })();
+
+//
+// (async () => {
+//   try {
+//     await mongoose.connect(process.env.ATLASDB_URL,{dbName:"quickstay" });
+//     console.log("✅ DB connected");
+
+//     const OWNER_ID = "686dda3c73e9673422ef46a1";  // your user ID from atlas users collection
+
+//     // Add default geometry for all listings
+//     const docs = initData.data.map(item => ({
+//       ...item,
+//       owner: OWNER_ID,
+//       geometry: { type: "Point", coordinates: [77.2090, 28.6139] } // Delhi coordinates (safe default)
+//     }));
+
+//     await Listing.deleteMany({});
+//     await Listing.insertMany(docs);
+
+//     console.log(`✅ Seeded ${docs.length} listings`);
+//     await mongoose.disconnect();
+//   } catch (e) {
+//     console.error(e);
+//   }
+// })();
 
 
 
