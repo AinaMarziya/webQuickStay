@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "22.17.1"
+    "node": "18.x"
   },
   "name": "quickstay",
   "version": "1.0.0",
