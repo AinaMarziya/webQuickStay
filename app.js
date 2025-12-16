@@ -43,13 +43,22 @@ app.engine('ejs', ejsMate);
 app.use(express.static("public"));
 
 
+// const store = MongoStore.create({
+//     mongoUrl: dbUrl,
+//     crypto: { 
+//         secret: process.env.SECRET,
+//     },
+//     touchAfter: 24 * 3600,
+// });
+
 const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: { 
-        secret: process.env.SECRET,
-    },
-    touchAfter: 24 * 3600,
+  mongoUrl: dbUrl,
+  collectionName: "sessions",
+  crypto: {
+    secret: process.env.SECRET,
+  },
 });
+
 
 store.on("error", (err) => {
     console.log("ERROR in MONGO SESSSION STORE", err);
