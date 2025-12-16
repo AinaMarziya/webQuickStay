@@ -1,7 +1,7 @@
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
-console.log(process.env.SECRET);
+// console.log(process.env.SECRET);
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -113,7 +113,8 @@ app.listen(8080, ()=>{
     console.log("Server is listening to port 8080");
 });
 
-console.log("Mapbox Token:", process.env.MAP_TOKEN);
-console.log(process.env.ATLASDB_URL);
+// SECRET TOKENS
+// console.log("Mapbox Token:", process.env.MAP_TOKEN);
+// console.log(process.env.ATLASDB_URL);
 
 // res.render("show", {mapToken: process.env.MAP_TOKEN});

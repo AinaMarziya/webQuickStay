@@ -2,7 +2,7 @@
 
 <script>
   const mapToken = "<%= process.env.MAP_TOKEN %>";
-  const listing = <%- JSON.stringify(listing) %>;
+  const listing = <%- JSON.stringify(listing) %> ;
 </script>
 
 <div class="row">
@@ -44,13 +44,23 @@
     <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
       <div class="mb-3 mt-3">
         <label class="form-label">Rating</label>
-        <fieldset class="starability-basic">
-          <input type="radio" name="review[rating]" value="1" checked />
-          <input type="radio" name="review[rating]" value="2" />
-          <input type="radio" name="review[rating]" value="3" />
-          <input type="radio" name="review[rating]" value="4" />
-          <input type="radio" name="review[rating]" value="5" />
-        </fieldset>
+            <fieldset class="starability-basic">
+        <input type="radio" id="rate1" name="review[rating]" value="1">
+        <label for="rate1">1 star</label>
+
+        <input type="radio" id="rate2" name="review[rating]" value="2">
+        <label for="rate2">2 stars</label>
+
+        <input type="radio" id="rate3" name="review[rating]" value="3">
+        <label for="rate3">3 stars</label>
+
+        <input type="radio" id="rate4" name="review[rating]" value="4">
+        <label for="rate4">4 stars</label>
+
+        <input type="radio" id="rate5" name="review[rating]" value="5">
+        <label for="rate5">5 stars</label>
+      </fieldset>
+
       </div>
 
       <div class="mb-3">
@@ -70,7 +80,9 @@
       <div class="card col-5 ms-3 mb-3">
         <div class="card-body">
           <h6><%= review.author.username %></h6>
+          <div class="starability-result" data-rating="<%= review.rating %>"></div>
           <p><%= review.comment %></p>
+
         </div>
       </div>
     <% } %>
